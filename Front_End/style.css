@@ -1,0 +1,623 @@
+/* ========== إعدادات عامة ========== */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family:
+		"Inter",
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		sans-serif;
+}
+
+body {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #eef0f2;
+	padding: 20px;
+	transition: background 0.3s;
+}
+
+#app {
+	width: 100%;
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 20px;
+	border-radius: 24px;
+	background: rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(10px);
+	min-height: 85vh;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
+	transition: all 0.3s;
+}
+
+/* ========== الثيمات ========== */
+.light {
+	background: #eef0f2;
+	color: #1a1a2e;
+}
+.light #app {
+	background: rgba(255, 255, 255, 0.75);
+}
+.dark {
+	background: #0d0d1a;
+	color: #eee;
+}
+.dark #app {
+	background: rgba(20, 20, 40, 0.92);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+.dark input,
+.dark select,
+.dark button {
+	background: #1a1a2e;
+	color: #eee;
+	border-color: #2a2a4e;
+}
+.dark .auth-card {
+	background: #1a1a2e;
+}
+.dark #todoList li {
+	background: #1a1a2e;
+	border-color: #2a2a4e;
+}
+.dark .stat-card {
+	background: rgba(26, 26, 46, 0.5);
+}
+.dark .add-section {
+	background: rgba(26, 26, 46, 0.3);
+}
+.dark .filter-section {
+	background: rgba(26, 26, 46, 0.2);
+}
+.dark header {
+	background: rgba(26, 26, 46, 0.4);
+}
+
+/* ========== شاشة المصادقة ========== */
+#authScreen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 80vh;
+	width: 100%;
+}
+
+.auth-container {
+	width: 100%;
+	max-width: 420px;
+}
+
+.auth-brand {
+	text-align: center;
+	margin-bottom: 32px;
+}
+
+.auth-brand h1 {
+	font-size: 36px;
+	font-weight: 700;
+	color: #1a1a2e;
+	letter-spacing: -0.5px;
+}
+
+.dark .auth-brand h1 {
+	color: #fff;
+}
+
+.auth-card {
+	background: white;
+	padding: 40px 36px 36px;
+	border-radius: 24px;
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+	transition: all 0.3s;
+}
+
+.auth-card h2 {
+	font-size: 28px;
+	font-weight: 700;
+	color: #1a1a2e;
+	margin-bottom: 0px;
+}
+
+.dark .auth-card h2 {
+	color: #fff;
+}
+
+.auth-sub {
+	color: #888;
+	font-size: 14px;
+	margin-bottom: 28px;
+	font-weight: 400;
+}
+
+.auth-form .input-group {
+	margin: 12px 0;
+}
+
+.auth-form .input-label {
+	display: block;
+	font-size: 12px;
+	font-weight: 600;
+	color: #888;
+	margin-bottom: 4px;
+	letter-spacing: 0.5px;
+}
+
+.auth-form input {
+	width: 100%;
+	padding: 14px 16px;
+	border: 1.5px solid #e8e8e8;
+	border-radius: 12px;
+	font-size: 15px;
+	background: #f8f8f8;
+	color: #1a1a2e;
+	transition:
+		border 0.3s,
+		background 0.3s;
+	font-weight: 400;
+}
+
+.dark .auth-form input {
+	background: #0f0f1a;
+	color: #eee;
+	border-color: #2a2a4e;
+}
+
+.auth-form input:focus {
+	border-color: #4caf50;
+	outline: none;
+	background: white;
+}
+
+.dark .auth-form input:focus {
+	background: #1a1a2e;
+}
+
+.auth-form input::placeholder {
+	color: #aaa;
+	font-weight: 300;
+}
+
+.auth-form button {
+	width: 100%;
+	padding: 14px;
+	background: #4caf50;
+	color: white;
+	border: none;
+	border-radius: 12px;
+	font-size: 17px;
+	font-weight: 600;
+	cursor: pointer;
+	margin-top: 20px;
+	transition: all 0.3s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+}
+
+.auth-form button:hover {
+	background: #43a047;
+	transform: scale(1.02);
+}
+
+.auth-switch {
+	margin-top: 22px;
+	text-align: center;
+	font-size: 14px;
+	color: #888;
+}
+
+.auth-switch a {
+	color: #4caf50;
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: 600;
+	transition: color 0.3s;
+}
+
+.auth-switch a:hover {
+	text-decoration: underline;
+	color: #388e3c;
+}
+
+/* ========== الهيدر ========== */
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 28px;
+	padding: 12px 20px;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 16px;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.header-left {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.header-left h1 {
+	font-size: 22px;
+	font-weight: 700;
+	color: #1a1a2e;
+}
+
+.dark .header-left h1 {
+	color: #fff;
+}
+
+.header-date {
+	font-size: 13px;
+	color: #888;
+}
+
+.header-right {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+#userGreeting {
+	font-size: 14px;
+}
+
+.header-right button {
+	padding: 8px 16px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 14px;
+	background: rgba(0, 0, 0, 0.04);
+	color: inherit;
+	transition: all 0.3s;
+	font-weight: 500;
+}
+
+.dark .header-right button {
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.header-right button:hover {
+	background: rgba(0, 0, 0, 0.08);
+	transform: scale(1.02);
+}
+
+.dark .header-right button:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-logout {
+	background: #e74c3c !important;
+	color: white !important;
+}
+.btn-logout:hover {
+	background: #c0392b !important;
+}
+
+/* ========== الإحصائيات ========== */
+.stats-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+	gap: 16px;
+	margin-bottom: 24px;
+}
+
+.stat-card {
+	padding: 18px 16px;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 16px;
+	text-align: center;
+	transition: all 0.3s;
+}
+
+.stat-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+.stat-number {
+	display: block;
+	font-size: 34px;
+	font-weight: 700;
+	color: #4caf50;
+}
+
+.stat-label {
+	font-size: 13px;
+	color: #888;
+}
+
+/* ========== إضافة مهمة ========== */
+.add-section {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 18px;
+	padding: 16px 18px;
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 16px;
+	align-items: center;
+}
+
+.add-section input,
+.add-section select {
+	padding: 12px 14px;
+	border-radius: 12px;
+	border: 1.5px solid #e8e8e8;
+	flex: 1;
+	min-width: 110px;
+	font-size: 14px;
+	background: #f8f8f8;
+	color: #1a1a2e;
+	transition: all 0.3s;
+}
+
+.dark .add-section input,
+.dark .add-section select {
+	background: #0f0f1a;
+	color: #eee;
+	border-color: #2a2a4e;
+}
+
+.add-section input:focus,
+.add-section select:focus {
+	border-color: #4caf50;
+	outline: none;
+}
+
+.add-section button {
+	padding: 12px 28px;
+	background: #4caf50;
+	color: white;
+	border: none;
+	border-radius: 12px;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.add-section button:hover {
+	background: #43a047;
+	transform: scale(1.02);
+}
+
+/* ========== الفلاتر ========== */
+.filter-section {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 18px;
+	padding: 12px 16px;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 14px;
+	align-items: center;
+}
+
+.filter-section input,
+.filter-section select {
+	padding: 10px 14px;
+	border-radius: 10px;
+	border: 1.5px solid #e8e8e8;
+	flex: 1;
+	min-width: 100px;
+	font-size: 13px;
+	background: #f8f8f8;
+	color: #1a1a2e;
+}
+
+.dark .filter-section input,
+.dark .filter-section select {
+	background: #0f0f1a;
+	color: #eee;
+	border-color: #2a2a4e;
+}
+
+.filter-section input:focus,
+.filter-section select:focus {
+	border-color: #4caf50;
+	outline: none;
+}
+
+.filter-section button {
+	padding: 10px 18px;
+	border: none;
+	border-radius: 10px;
+	background: #e74c3c;
+	color: white;
+	cursor: pointer;
+	font-weight: 600;
+	font-size: 13px;
+	transition: 0.3s;
+}
+
+.filter-section button:hover {
+	background: #c0392b;
+	transform: scale(0.97);
+}
+
+/* ========== قائمة المهام ========== */
+#todoList {
+	list-style: none;
+	padding: 0;
+	width: 100%;
+}
+
+#todoList li {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 18px;
+	margin: 6px 0;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 14px;
+	border-right: 5px solid #4caf50;
+	transition: all 0.3s;
+	flex-wrap: wrap;
+}
+
+#todoList li:hover {
+	transform: translateX(-4px);
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.priority-high {
+	border-right-color: #e74c3c !important;
+}
+.priority-medium {
+	border-right-color: #f39c12 !important;
+}
+.priority-low {
+	border-right-color: #2ecc71 !important;
+}
+
+.done {
+	text-decoration: line-through;
+	opacity: 0.5;
+	border-right-color: #95a5a6 !important;
+}
+
+.todo-text {
+	flex: 1;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.todo-meta {
+	font-size: 12px;
+	opacity: 0.7;
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.todo-actions {
+	display: flex;
+	gap: 6px;
+}
+
+.todo-actions button {
+	padding: 4px 12px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: 0.3s;
+}
+
+.todo-actions button:first-child {
+	background: #3498db;
+	color: white;
+}
+.todo-actions button:first-child:hover {
+	background: #2980b9;
+}
+.todo-actions button:last-child {
+	background: #e74c3c;
+	color: white;
+}
+.todo-actions button:last-child:hover {
+	background: #c0392b;
+}
+
+/* ========== الإشعارات ========== */
+.notification {
+	position: fixed;
+	top: 25px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 14px 32px;
+	border-radius: 14px;
+	font-size: 15px;
+	font-weight: 600;
+	display: none;
+	z-index: 9999;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+	animation: slideDown 0.4s ease;
+	text-align: center;
+	max-width: 90%;
+}
+
+@keyframes slideDown {
+	0% {
+		transform: translateX(-50%) translateY(-100px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(-50%) translateY(0);
+		opacity: 1;
+	}
+}
+
+/* ========== حالة فارغة ========== */
+.empty-state {
+	text-align: center;
+	padding: 40px 20px;
+	opacity: 0.6;
+}
+.empty-state span {
+	font-size: 40px;
+	display: block;
+	margin-bottom: 10px;
+}
+.empty-state p {
+	font-size: 16px;
+}
+
+/* ========== استجابة ========== */
+@media (max-width: 700px) {
+	body {
+		padding: 10px;
+	}
+	#app {
+		padding: 10px;
+		min-height: 95vh;
+		border-radius: 16px;
+	}
+	.filter-section,
+	.add-section {
+		flex-direction: column;
+	}
+	.filter-section input,
+	.filter-section select,
+	.add-section input,
+	.add-section select {
+		width: 100%;
+		min-width: unset;
+	}
+	header {
+		flex-direction: column;
+		text-align: center;
+	}
+	.header-left {
+		flex-direction: column;
+		gap: 4px;
+	}
+	.auth-card {
+		padding: 28px 20px;
+	}
+	#todoList li {
+		flex-direction: column;
+		align-items: stretch;
+		text-align: center;
+	}
+	.todo-actions {
+		justify-content: center;
+	}
+	.stats-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+	}
+	.stat-number {
+		font-size: 24px;
+	}
+}

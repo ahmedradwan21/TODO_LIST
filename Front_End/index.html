@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TASKS — 2026</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Mono', monospace;
+      background: #050505;
+      color: #F4F0EA;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ===== APP CONTAINER ===== */
+    #app {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ===== LEFT COLUMN (Login only) ===== */
+    .left-column {
+      flex: 1;
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 56px 48px 56px;
+      height: 100%;
+    }
+
+    .tasks-brand {
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: #F4F0EA;
+      text-transform: uppercase;
+    }
+    .tasks-brand span {
+      color: #ff003c;
+    }
+
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-signin-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: #ff003c;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .hero-headline {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(72px, 11vw, 130px);
+      font-weight: 700;
+      font-style: italic;
+      color: #F4F0EA;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+    }
+    .hero-headline .line-break {
+      display: block;
+    }
+
+    .tasks-pending {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      font-weight: 400;
+      color: #666;
+      letter-spacing: 0.5px;
+      padding-bottom: 4px;
+    }
+
+    /* ===== RIGHT COLUMN (Login form) ===== */
+    .right-column {
+      width: 480px;
+      min-width: 480px;
+      max-width: 480px;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 48px;
+      height: 100%;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .auth-card {
+      width: 100%;
+    }
+
+    .auth-heading {
+      font-family: 'Anton', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: #F4F0EA;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .auth-divider {
+      width: 48px;
+      height: 2px;
+      background: #ff003c;
+      border: none;
+      margin: 8px 0 32px 0;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .input-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .input-group input {
+      width: 100%;
+      height: 56px;
+      padding: 0 16px;
+      background: #0d0d0d;
+      border: 1.5px solid #ff003c;
+      border-radius: 0;
+      color: #F4F0EA;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .input-group input::placeholder {
+      color: #444;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+    }
+    .input-group input:focus {
+      border-color: #F4F0EA;
+      background: #0a0a0a;
+    }
+
+    .auth-btn {
+      width: 100%;
+      height: 56px;
+      background: #050505;
+      border: none;
+      border-radius: 0;
+      color: #F4F0EA;
+      font-family: 'Anton', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease;
+      margin-top: 6px;
+    }
+    .auth-btn:hover {
+      background: #ff003c;
+      color: #F4F0EA;
+    }
+
+    .auth-footer {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+      margin-top: 28px;
+      letter-spacing: 0.3px;
+    }
+    .auth-footer a {
+      color: #F4F0EA;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: color 0.25s ease;
+    }
+    .auth-footer a:hover {
+      color: #ff003c;
+    }
+
+    /* ===== TODO SCREEN ===== */
+    #todoScreen {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      background: #050505;
+      padding: 40px 56px;
+      overflow-y: auto;
+    }
+    #todoScreen.active {
+      display: block;
+    }
+
+    /* Header */
+    .todo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #1e1e1e;
+      padding-bottom: 16px;
+    }
+    .todo-header h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      color: #F4F0EA;
+    }
+    .todo-header h1 span {
+      color: #ff003c;
+    }
+    .todo-header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .todo-date {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      color: #666;
+      letter-spacing: 0.5px;
+    }
+    .logout-link {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      color: #666;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.25s ease;
+      background: none;
+      border: none;
+    }
+    .logout-link:hover {
+      color: #ff003c;
+    }
+
+    /* Stats */
+    .todo-stats {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 28px;
+    }
+    .todo-stats .stat-item {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 16px;
+      color: #F4F0EA;
+    }
+    .todo-stats .stat-item strong {
+      color: #ff003c;
+      font-weight: 700;
+    }
+
+    /* Add task row */
+    .todo-add-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding: 16px 0;
+      border-top: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .todo-add-row input[type="text"],
+    .todo-add-row input[type="datetime-local"] {
+      height: 44px;
+      padding: 0 14px;
+      background: transparent;
+      border: 1px solid #1e1e1e;
+      color: #F4F0EA;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.25s ease;
+      border-radius: 0;
+    }
+    .todo-add-row input[type="text"]:focus,
+    .todo-add-row input[type="datetime-local"]:focus {
+      border-color: #ff003c;
+    }
+    .todo-add-row input[type="text"]::placeholder {
+      color: #444;
+    }
+    .todo-add-row .task-input {
+      flex: 2 1 200px;
+    }
+    .todo-add-row .project-input {
+      flex: 1 1 120px;
+    }
+    .todo-add-row .date-input {
+      flex: 1 1 150px;
+    }
+    .todo-add-row .priority-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    .priority-btn {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid #1e1e1e;
+      color: #666;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border-radius: 0;
+    }
+    .priority-btn.active {
+      border-color: #ff003c;
+      color: #F4F0EA;
+    }
+    .priority-btn:hover {
+      border-color: #ff003c;
+      color: #F4F0EA;
+    }
+    .add-btn {
+      padding: 8px 28px;
+      background: #ff003c;
+      border: none;
+      color: #F4F0EA;
+      font-family: 'Anton', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.25s ease;
+      border-radius: 0;
+      height: 44px;
+    }
+    .add-btn:hover {
+      background: #cc0030;
+    }
+
+    /* ===== FILTER ROW ===== */
+    .todo-filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+      margin-bottom: 20px;
+      padding: 8px 0;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .todo-filters-row .search-input {
+      flex: 2 1 180px;
+      height: 36px;
+      padding: 0 12px;
+      background: transparent;
+      border: 1px solid #1e1e1e;
+      color: #F4F0EA;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.25s ease;
+      border-radius: 0;
+    }
+    .todo-filters-row .search-input:focus {
+      border-color: #ff003c;
+    }
+    .todo-filters-row .search-input::placeholder {
+      color: #444;
+    }
+
+    .todo-filters-row .filter-select {
+      flex: 1 1 120px;
+      height: 36px;
+      padding: 0 12px;
+      background: #1e1e1e;
+      border: 1px solid #1e1e1e;
+      color: #F4F0EA;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.25s ease, background 0.25s ease;
+      border-radius: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 10px;
+      padding-right: 32px;
+      cursor: pointer;
+    }
+    .todo-filters-row .filter-select:hover {
+      border-color: #666;
+    }
+    .todo-filters-row .filter-select:focus {
+      border-color: #ff003c;
+      background: #1e1e1e;
+    }
+
+    /* Fix dropdown options — dark background, white text */
+    .todo-filters-row .filter-select option {
+      background: #1e1e1e !important;
+      color: #F4F0EA !important;
+      padding: 8px 12px;
+    }
+
+    /* Force dark background for select dropdown in all browsers */
+    .todo-filters-row .filter-select::-webkit-listbox,
+    .todo-filters-row .filter-select::-webkit-listbox option,
+    .todo-filters-row .filter-select::-moz-listbox,
+    .todo-filters-row .filter-select option {
+      background: #1e1e1e !important;
+      color: #F4F0EA !important;
+    }
+
+    .todo-filters-row .filter-tabs {
+      display: flex;
+      gap: 16px;
+      margin-left: auto;
+    }
+
+    .filter-tab {
+      background: transparent;
+      border: none;
+      color: #666;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color 0.25s ease;
+      border-bottom: 2px solid transparent;
+    }
+    .filter-tab.active {
+      color: #F4F0EA;
+      border-bottom-color: #ff003c;
+    }
+    .filter-tab:hover {
+      color: #F4F0EA;
+    }
+
+    /* Todo list */
+    .todo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .todo-list li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid #1e1e1e;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 15px;
+      color: #F4F0EA;
+    }
+    .todo-list li:last-child {
+      border-bottom: none;
+    }
+    .todo-list .todo-checkbox {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #666;
+      border-radius: 0;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.25s ease, background 0.25s ease;
+      flex-shrink: 0;
+    }
+    .todo-list .todo-checkbox:checked {
+      border-color: #ff003c;
+      background: #ff003c;
+    }
+    .todo-list .todo-checkbox:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #F4F0EA;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .todo-list .todo-text {
+      flex: 1;
+      font-size: 15px;
+    }
+    .todo-list .todo-text.done {
+      text-decoration: line-through;
+      color: #666;
+    }
+    .todo-list .todo-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .todo-list .todo-meta .priority-high {
+      color: #ff003c;
+    }
+    .todo-list .todo-meta .priority-medium {
+      color: #f0a030;
+    }
+    .todo-list .todo-meta .priority-low {
+      color: #2ecc71;
+    }
+    .todo-list .todo-meta .project-tag {
+      color: #888;
+    }
+    .todo-list .todo-meta .due-date {
+      color: #888;
+    }
+    .todo-list .todo-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .todo-list .todo-actions button {
+      background: transparent;
+      border: none;
+      color: #666;
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.25s ease;
+    }
+    .todo-list .todo-actions button:hover {
+      color: #ff003c;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 0;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      color: #666;
+    }
+    .empty-state .emoji {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* ===== NOTIFICATION ===== */
+    .notification {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 32px;
+      background: #ff003c;
+      color: #F4F0EA;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      display: none;
+      z-index: 9999;
+      text-align: center;
+      border: none;
+      border-radius: 0;
+      animation: slideDown 0.3s ease;
+    }
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .right-column { width: 400px; min-width: 400px; max-width: 400px; padding: 32px 36px; }
+      .hero-headline { font-size: clamp(56px, 9vw, 90px); }
+      .left-column { padding: 32px 36px; }
+    }
+
+    @media (max-width: 768px) {
+      #app { flex-direction: column; height: auto; min-height: 100vh; }
+      .left-column { flex: none; height: 50vh; min-height: 320px; padding: 32px 28px 24px; }
+      .hero-content { justify-content: center; }
+      .hero-headline { font-size: clamp(48px, 14vw, 72px); }
+      .right-column { width: 100%; min-width: unset; max-width: unset; height: auto; min-height: 50vh; padding: 36px 28px; align-items: flex-start; }
+      .auth-container { max-width: 100%; }
+      #todoScreen { padding: 24px 20px; height: auto; min-height: 100vh; }
+      .todo-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .todo-header-right { width: 100%; justify-content: space-between; }
+      .todo-add-row { flex-direction: column; align-items: stretch; }
+      .todo-add-row input, .todo-add-row .priority-buttons, .add-btn { width: 100%; }
+      .todo-filters-row { flex-direction: column; align-items: stretch; }
+      .todo-filters-row .filter-tabs { margin-left: 0; justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .left-column { padding: 24px 18px 18px; min-height: 260px; }
+      .hero-headline { font-size: clamp(36px, 12vw, 52px); }
+      .tasks-brand { font-size: 16px; }
+      .hero-signin-label { font-size: 13px; }
+      .right-column { padding: 28px 18px; }
+      .auth-heading { font-size: 32px; }
+      .auth-btn { font-size: 18px; height: 48px; }
+      .input-group input { height: 48px; font-size: 14px; }
+      .todo-stats { gap: 20px; flex-wrap: wrap; }
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #050505; }
+    ::-webkit-scrollbar-thumb { background: #1e1e1e; }
+    ::-webkit-scrollbar-thumb:hover { background: #ff003c; }
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- NOTIFICATION -->
+  <div id="notification" class="notification"></div>
+
+  <!-- LEFT COLUMN (Login) -->
+  <div class="left-column" id="authLeftPanel">
+    <div class="tasks-brand">TASKS <span>—</span> 2026</div>
+    <div class="hero-content">
+      <div class="hero-signin-label" id="authTitle">SIGN IN</div>
+      <div class="hero-headline">
+        <span class="line-break">GET</span>
+        <span class="line-break">IT</span>
+        <span class="line-break">DONE.</span>
+      </div>
+    </div>
+    <div class="tasks-pending"><span id="pendingCountDisplay">0</span> tasks pending</div>
+  </div>
+
+  <!-- RIGHT COLUMN (Login form) -->
+  <div class="right-column" id="authScreen">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-heading" id="authTitle">SIGN IN</div>
+        <div class="auth-divider"></div>
+        <form class="auth-form" id="authForm" autocomplete="off">
+          <div class="input-group" id="usernameGroup" style="display:none;">
+            <label class="input-label" for="authUsername">USERNAME</label>
+            <input type="text" id="authUsername" placeholder="username" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="authEmail">EMAIL</label>
+            <input type="email" id="authEmail" placeholder="you@example.com" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="authPassword">PASSWORD</label>
+            <input type="password" id="authPassword" placeholder="••••••••" />
+          </div>
+          <button type="button" class="auth-btn" id="authBtn">SIGN IN →</button>
+          <div class="auth-footer">
+            <span id="switchText">No account?</span>
+            <a href="#" id="switchAuth">REGISTER</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- TODO SCREEN -->
+  <div id="todoScreen">
+    <div class="todo-header">
+      <h1>TASKS <span>—</span> 2026</h1>
+      <div class="todo-header-right">
+        <span class="todo-date" id="currentDate">AUGUST 4, 2026</span>
+        <button class="logout-link" id="logoutBtn">✕ LOGOUT</button>
+      </div>
+    </div>
+
+    <div class="todo-stats">
+      <div class="stat-item"><span id="pendingCount">0</span> remaining</div>
+      <div class="stat-item"><span id="doneCount">0</span> completed</div>
+    </div>
+
+    <!-- Add task row -->
+    <div class="todo-add-row">
+      <input type="text" class="task-input" id="todoText" placeholder="Add a new task..." />
+      <input type="text" class="project-input" id="todoProject" placeholder="Project" />
+      <input type="datetime-local" class="date-input" id="todoDueDate" />
+      <div class="priority-buttons">
+        <button class="priority-btn" data-priority="منخفضة">LOW</button>
+        <button class="priority-btn active" data-priority="متوسطة">MEDIUM</button>
+        <button class="priority-btn" data-priority="عالية">HIGH</button>
+      </div>
+      <button class="add-btn" id="addBtn">ADD</button>
+    </div>
+
+    <!-- Filter row -->
+    <div class="todo-filters-row">
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search tasks..." />
+      <select class="filter-select" id="projectFilter">
+        <option value="الكل">📁 All projects</option>
+      </select>
+      <select class="filter-select" id="priorityFilter">
+        <option value="">🎯 All priorities</option>
+        <option value="عالية">High</option>
+        <option value="متوسطة">Medium</option>
+        <option value="منخفضة">Low</option>
+      </select>
+      <select class="filter-select" id="sortFilter">
+        <!-- ✅ "Latest" is always available and set as default -->
+        <option value="createdAt" selected>📅 Latest</option>
+        <option value="dueDate">📅 Due date</option>
+        <option value="priority">🎯 Priority</option>
+      </select>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">ALL</button>
+        <button class="filter-tab" data-filter="active">ACTIVE</button>
+        <button class="filter-tab" data-filter="done">DONE</button>
+      </div>
+    </div>
+
+    <!-- Todo list -->
+    <ul class="todo-list" id="todoList"></ul>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT (updated to use all features)
+     ============================================================ -->
+<script>
+  // ===== STATE =====
+  const state = {
+    token: localStorage.getItem('token'),
+    username: localStorage.getItem('username'),
+    todos: [],
+    projects: ['الكل'],
+    filters: {
+      project: 'الكل',
+      search: '',
+      priority: '',
+      sort: 'createdAt',   // default: latest
+      done: undefined,
+    },
+    isDark: localStorage.getItem('theme') === 'dark',
+  };
+
+  // ===== API =====
+  const API_BASE = 'http://localhost:5000/api';
+
+  function getHeaders() {
+    return {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${state.token}`,
+    };
+  }
+
+  // ===== NOTIFICATIONS =====
+  let notifyTimer = null;
+
+  function showNotification(msg, isError = false) {
+    const el = document.getElementById('notification');
+    if (!el) return;
+    el.textContent = msg;
+    el.style.background = isError ? '#ff003c' : '#2ecc71';
+    el.style.color = '#F4F0EA';
+    el.style.display = 'block';
+    clearTimeout(notifyTimer);
+    notifyTimer = setTimeout(() => {
+      el.style.display = 'none';
+    }, isError ? 4000 : 2500);
+  }
+
+  // ===== AUTH =====
+  const authBtn = document.getElementById('authBtn');
+  const authTitle = document.getElementById('authTitle');
+  const authUsername = document.getElementById('authUsername');
+  const authEmail = document.getElementById('authEmail');
+  const authPassword = document.getElementById('authPassword');
+  const switchAuth = document.getElementById('switchAuth');
+  const switchText = document.getElementById('switchText');
+  const usernameGroup = document.getElementById('usernameGroup');
+  let isLogin = true;
+
+  if (switchAuth) {
+    switchAuth.addEventListener('click', (e) => {
+      e.preventDefault();
+      isLogin = !isLogin;
+      const titleElements = document.querySelectorAll('#authTitle');
+      titleElements.forEach(el => {
+        el.textContent = isLogin ? 'SIGN IN' : 'REGISTER';
+      });
+      authBtn.textContent = isLogin ? 'SIGN IN →' : 'REGISTER →';
+      switchText.textContent = isLogin ? 'No account?' : 'Already have an account?';
+      switchAuth.textContent = isLogin ? 'REGISTER' : 'SIGN IN';
+      usernameGroup.style.display = isLogin ? 'none' : 'block';
+      if (isLogin) authUsername.value = '';
+    });
+  }
+
+  if (authBtn) {
+    authBtn.addEventListener('click', async () => {
+      const endpoint = isLogin ? 'login' : 'register';
+
+      if (!isLogin) {
+        const usernameVal = authUsername.value.trim();
+        if (!usernameVal || usernameVal.length < 3) {
+          return showNotification('❌ Username must be at least 3 characters', true);
+        }
+      }
+
+      const emailVal = authEmail.value.trim();
+      const passwordVal = authPassword.value.trim();
+
+      if (!emailVal) return showNotification('❌ Email is required', true);
+      if (!passwordVal || passwordVal.length < 6)
+        return showNotification('❌ Password must be at least 6 characters', true);
+
+      const body = { email: emailVal, password: passwordVal };
+      if (!isLogin) body.username = authUsername.value.trim();
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/${endpoint}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.message || 'Something went wrong');
+
+        if (isLogin) {
+          state.token = data.data.token;
+          state.username = data.data.username;
+          localStorage.setItem('token', state.token);
+          localStorage.setItem('username', state.username);
+          showNotification(`👋 Welcome, ${state.username}`);
+          initApp();
+        } else {
+          showNotification('✅ Registration successful! Please sign in.');
+          isLogin = true;
+          switchAuth.click();
+          authEmail.value = '';
+          authPassword.value = '';
+          authUsername.value = '';
+        }
+      } catch (err) {
+        showNotification(err.message, true);
+      }
+    });
+  }
+
+  // ===== LOGOUT =====
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      state.token = null;
+      state.username = null;
+      showNotification('👋 Logged out');
+      location.reload();
+    });
+  }
+
+  // ===== FETCH TODOS =====
+  async function fetchTodos() {
+    try {
+      const params = new URLSearchParams();
+      if (state.filters.project && state.filters.project !== 'الكل') {
+        params.append('project', state.filters.project);
+      }
+      if (state.filters.search) {
+        params.append('search', state.filters.search);
+      }
+      if (state.filters.priority) {
+        params.append('priority', state.filters.priority);
+      }
+      if (state.filters.sort) {
+        params.append('sort', state.filters.sort);
+      }
+      if (state.filters.done !== undefined) {
+        params.append('done', state.filters.done);
+      }
+
+      const res = await fetch(`${API_BASE}/todos?${params}`, {
+        headers: getHeaders(),
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || 'Failed to fetch todos');
+
+      state.todos = Array.isArray(data.data) ? data.data : [];
+      renderTodos();
+      updateStats();
+      updatePendingDisplay();
+    } catch (err) {
+      showNotification(err.message, true);
+      state.todos = [];
+      renderTodos();
+      updateStats();
+      updatePendingDisplay();
+    }
+  }
+
+  // ===== FETCH PROJECTS (modified to always include 'General') =====
+  async function fetchProjects() {
+    try {
+      const res = await fetch(`${API_BASE}/todos/projects`, {
+        headers: getHeaders(),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to fetch projects');
+
+      let projects = Array.isArray(data.data) ? data.data : [];
+
+      // ✅ Ensure 'General' is always in the list (like "All priorities")
+      if (!projects.includes('General')) {
+        projects.push('General');
+      }
+
+      const select = document.getElementById('projectFilter');
+      if (select) {
+        select.innerHTML = `
+          <option value="الكل">📁 All projects</option>
+          ${projects
+            .filter(p => p !== 'الكل')
+            .map(p => `<option value="${p}">${p}</option>`)
+            .join('')}
+        `;
+      }
+
+      state.projects = ['الكل', ...projects.filter(p => p !== 'الكل')];
+    } catch (err) {
+      console.warn('Failed to fetch projects:', err.message);
+      const select = document.getElementById('projectFilter');
+      if (select) {
+        select.innerHTML = `
+          <option value="الكل">📁 All projects</option>
+          <option value="General">General</option>
+        `;
+      }
+      state.projects = ['الكل', 'General'];
+    }
+  }
+
+  // ===== RENDER TODOS =====
+  function renderTodos() {
+    const list = document.getElementById('todoList');
+    if (!list) return;
+
+    if (!state.todos || state.todos.length === 0) {
+      list.innerHTML = `
+        <li class="empty-state">
+          <span class="emoji">🎯</span>
+          No tasks yet. Add one above!
+        </li>
+      `;
+      return;
+    }
+
+    list.innerHTML = state.todos
+      .map((t) => {
+        const dueDate = t.dueDate ?
+          new Date(t.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) :
+          '';
+        const priorityClass =
+          t.priority === 'عالية' ? 'priority-high' :
+          t.priority === 'متوسطة' ? 'priority-medium' : 'priority-low';
+        const doneClass = t.done ? 'done' : '';
+
+        return `
+          <li>
+            <input type="checkbox" class="todo-checkbox" ${t.done ? 'checked' : ''} onclick="toggleTodo('${t._id}')" />
+            <span class="todo-text ${doneClass}">${t.text}</span>
+            <span class="todo-meta">
+              ${t.project ? `<span class="project-tag">📁 ${t.project}</span>` : ''}
+              <span class="${priorityClass}">${t.priority}</span>
+              ${dueDate ? `<span class="due-date">📅 ${dueDate}</span>` : ''}
+            </span>
+            <span class="todo-actions">
+              <button onclick="deleteTodo('${t._id}')" title="Delete">✕</button>
+            </span>
+          </li>
+        `;
+      })
+      .join('');
+  }
+
+  // ===== UPDATE STATS =====
+  function updateStats() {
+    const total = state.todos.length;
+    const done = state.todos.filter((t) => t.done).length;
+    const pending = total - done;
+    const doneEl = document.getElementById('doneCount');
+    const pendingEl = document.getElementById('pendingCount');
+    if (doneEl) doneEl.textContent = done;
+    if (pendingEl) pendingEl.textContent = pending;
+  }
+
+  function updatePendingDisplay() {
+    const pending = state.todos.filter((t) => !t.done).length;
+    const el = document.getElementById('pendingCountDisplay');
+    if (el) el.textContent = pending;
+  }
+
+  // ===== ADD TODO =====
+  const addBtn = document.getElementById('addBtn');
+  if (addBtn) {
+    addBtn.addEventListener('click', async () => {
+      const textInput = document.getElementById('todoText');
+      const text = textInput ? textInput.value.trim() : '';
+      if (!text) return showNotification('❌ Please enter a task', true);
+
+      const projectInput = document.getElementById('todoProject');
+      const project = projectInput ? projectInput.value.trim() || 'General' : 'General';
+
+      const dueDateInput = document.getElementById('todoDueDate');
+      const dueDate = dueDateInput ? dueDateInput.value : undefined;
+
+      const activePriorityBtn = document.querySelector('.priority-btn.active');
+      const priority = activePriorityBtn ? activePriorityBtn.dataset.priority : 'متوسطة';
+
+      const todoData = {
+        text,
+        project,
+        dueDate,
+        priority,
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/todos`, {
+          method: 'POST',
+          headers: getHeaders(),
+          body: JSON.stringify(todoData),
+        });
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.message || 'Failed to add task');
+
+        showNotification('✅ Task added');
+        if (textInput) textInput.value = '';
+        if (projectInput) projectInput.value = '';
+        if (dueDateInput) dueDateInput.value = '';
+
+        await fetchTodos();
+        await fetchProjects();
+      } catch (err) {
+        showNotification(err.message, true);
+      }
+    });
+  }
+
+  // ===== TOGGLE TODO =====
+  window.toggleTodo = async (id) => {
+    try {
+      const todo = state.todos.find((t) => t._id === id);
+      if (!todo) return;
+
+      const res = await fetch(`${API_BASE}/todos/${id}`, {
+        method: 'PUT',
+        headers: getHeaders(),
+        body: JSON.stringify({ done: !todo.done }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || 'Failed to update');
+
+      showNotification(todo.done ? '↩️ Task reopened' : '✅ Task completed');
+      await fetchTodos();
+    } catch (err) {
+      showNotification(err.message, true);
+    }
+  };
+
+  // ===== DELETE TODO =====
+  window.deleteTodo = async (id) => {
+    if (!confirm('Delete this task?')) return;
+
+    try {
+      const res = await fetch(`${API_BASE}/todos/${id}`, {
+        method: 'DELETE',
+        headers: getHeaders(),
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || 'Failed to delete');
+
+      showNotification('🗑️ Task deleted');
+      await fetchTodos();
+      await fetchProjects();
+    } catch (err) {
+      showNotification(err.message, true);
+    }
+  };
+
+  // ===== FILTERS =====
+  // Search
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    let searchTimeout;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        state.filters.search = e.target.value.trim();
+        fetchTodos();
+      }, 300);
+    });
+  }
+
+  // Project filter
+  const projectFilter = document.getElementById('projectFilter');
+  if (projectFilter) {
+    projectFilter.addEventListener('change', (e) => {
+      state.filters.project = e.target.value;
+      fetchTodos();
+    });
+  }
+
+  // Priority filter
+  const priorityFilter = document.getElementById('priorityFilter');
+  if (priorityFilter) {
+    priorityFilter.addEventListener('change', (e) => {
+      state.filters.priority = e.target.value;
+      fetchTodos();
+    });
+  }
+
+  // Sort filter
+  const sortFilter = document.getElementById('sortFilter');
+  if (sortFilter) {
+    sortFilter.addEventListener('change', (e) => {
+      state.filters.sort = e.target.value;
+      fetchTodos();
+    });
+  }
+
+  // Status tabs (ALL, ACTIVE, DONE)
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      if (filter === 'all') {
+        state.filters.done = undefined;
+      } else if (filter === 'active') {
+        state.filters.done = false;
+      } else if (filter === 'done') {
+        state.filters.done = true;
+      }
+      fetchTodos();
+    });
+  });
+
+  // ===== PRIORITY BUTTONS =====
+  const priorityBtns = document.querySelectorAll('.priority-btn');
+  priorityBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      priorityBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // ===== INIT APP =====
+  async function initApp() {
+    const authScreen = document.getElementById('authScreen');
+    const authLeftPanel = document.getElementById('authLeftPanel');
+    const todoScreen = document.getElementById('todoScreen');
+
+    if (authScreen) authScreen.style.display = 'none';
+    if (authLeftPanel) authLeftPanel.style.display = 'none';
+    if (todoScreen) {
+      todoScreen.style.display = 'block';
+      todoScreen.classList.add('active');
+    }
+
+    const dateEl = document.getElementById('currentDate');
+    if (dateEl) {
+      const now = new Date();
+      dateEl.textContent = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+    }
+
+    await fetchProjects();
+    await fetchTodos();
+  }
+
+  // ===== START =====
+  if (state.token) {
+    initApp();
+  } else {
+    const authScreen = document.getElementById('authScreen');
+    const authLeftPanel = document.getElementById('authLeftPanel');
+    const todoScreen = document.getElementById('todoScreen');
+    if (authScreen) authScreen.style.display = 'flex';
+    if (authLeftPanel) authLeftPanel.style.display = 'flex';
+    if (todoScreen) {
+      todoScreen.style.display = 'none';
+      todoScreen.classList.remove('active');
+    }
+    document.getElementById('pendingCountDisplay').textContent = '0';
+  }
+
+  // ===== EXPLANATION =====
+  console.log('✅ App ready. "Latest" is always available and set as default sort.');
+  console.log('💡 How sorting works:');
+  console.log('  📅 Latest   → sort by createdAt (newest first)');
+  console.log('  📅 Due date → sort by dueDate (earliest first)');
+  console.log('  🎯 Priority → sort by priority (high → low)');
+</script>
+
+</body>
+</html>
