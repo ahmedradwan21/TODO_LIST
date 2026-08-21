@@ -46,7 +46,7 @@ exports.updateTodo = async (userId, todoId, updatedata) => {
 		{ new: true, runValidators: true },
 	);
 	if (!todo) {
-		throw new AppError("المهمة غير موجودة أو لا تملك صلاحية التعديل", 404);
+		throw new AppError("اthis todo does not exist or you do not have permission to delete it", 404);
 	}
 	return todo;
 };
